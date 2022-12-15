@@ -1,0 +1,181 @@
+{
+  "mode": "dock",
+    "height": 20,
+    "spacing": 4, 
+    "modules-left": ["custom/menu", "wlr/workspaces"],
+    "modules-center": ["custom/weather"],
+    "modules-right": ["network", "battery", "clock", "custom/power"],
+    "wlr/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "format": "{icon}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 24,
+        "icon-theme": "Papirus",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "exec-if": "test (swaymsg -t get_tree| jq -r 'recurse(.nodes[]?) | recurse(.floating_nodes[]?) | select(.type==\"con\"), select(.type==\"floating_con\") | select((.app_id != null) or .name != null) | {name} | .name' | count) -eq 0"
+    },
+    "bluetooth" : {
+      "format": " {status}",
+	    "format-connected": " {device_alias}",
+	    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+	    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+	    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "interval": 30,
+      "format-icons": {
+        "enabled": " ",
+        "disabled": ""
+      },
+	    "tooltip-format": "{status}",
+      "on-click": "blueberry"
+    },
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "  ",
+            "unlocked": "  "
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "  ",
+            "deactivated": "  "
+        }
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": " {:%Y-%m-%d}",
+        "format": " {:%H:%M}"
+    },
+    "cpu": {
+        "format": "   {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "   {}% "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format-critical": "{icon} {temperatureC}°C ",
+        "format": "{icon} {temperatureC}°C ",
+        "format-icons": ["  ", "  ", "  "]
+    },
+   "backlight": {
+		"interval": 2,
+		"align": 0,
+		"rotate": 0,
+        //"device": "amdgpu_bl0",
+        "format": "{icon}   {percent}%",
+        "format-icons": ["", "", "", ""],
+		// Commands to execute on events
+        "on-click": "",
+        "on-click-middle": "",
+        "on-click-right": "",
+        "on-update": "",
+        "on-scroll-up": "light -A 5%",
+        "on-scroll-down": "light -U 5%",
+        "smooth-scrolling-threshold": 1,
+    },   
+   "battery": {
+		"interval": 60,
+		"align": 0,
+		"rotate": 0,
+		//"bat": "BAT1",
+		//"adapter": "ACAD",
+		"full-at": 100,
+		"design-capacity": false,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}   {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-full": "{icon}     Full",
+        //"format-good": "",
+        "format-alt": "{icon}  {time}",
+        "format-icons": ["", "", "", "", ""],
+        "format-time": "{H}h {M}min",
+        "tooltip": true,
+    },       
+    "network": {
+		"interval": 5,
+        //"interface": "wlan*", // (Optional) To force the use of this interface, set it for netspeed to work
+        "format-wifi": "   {essid}",
+        "format-ethernet": "   {ipaddr}/{cidr}",
+        "format-linked": "   {ifname} (No IP)",
+        "format-disconnected": "睊   Disconnected",
+        "format-disabled": "睊  Disabled",
+        // "format-alt": "  {bandwidthUpBits} |   {bandwidthDownBits}",
+        "tooltip-format": "   {ifname} via {gwaddr}",
+        "on-click": "networkmanager_dmenu"
+    },    
+    "pulseaudio": {
+        "scroll-step": 5, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{icon} {volume}%  {format_source}",
+        "format-bluetooth-muted": "  {icon}  {format_source}",
+        "format-muted": "  {format_source}",
+        "format-source": "  {volume}%",
+        "format-source-muted": "  ",
+        "format-icons": {
+            "headphone": "  ",
+            "hands-free": "  ",
+            "headset": "  ",
+            "phone": "  ",
+            "portable": "  ",
+            "car": "   ",
+            "default": ["  ", "  ", "  "]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/menu": {
+         "format": "",
+         "tooltip": false,
+         "on-click": "$HOME/.config/hypr/scripts/menu",
+    },
+"custom/weather": {
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 300,
+        "return-type": "json",
+        "exec": "~/.config/hypr/scripts/weather.sh harare",
+        "exec-if": "ping wttr.in -c1"
+    },
+    "custom/power": {
+         "format": "襤  ",
+         "tooltip": false,
+         "on-click": "$HOME/.config/hypr/scripts/wlogout",
+    },   
+    "custom/pacman": {
+       "format": "   {} ",
+        "exec": "checkupdates | wc -l",
+        "exec-if": "[[ $(checkupdates | wc -l) ]]",
+        "interval": 21600,
+        "on-click": "foot -e yay -Syu && notify-send 'The system has been updated' "    }
+}

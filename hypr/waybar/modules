@@ -1,0 +1,41 @@
+
+// Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
+//
+// Waybar modules configuration
+{
+	// waybar-backlight
+    "backlight": {
+		"interval": 2,
+		"align": 0,
+		"rotate": 0,
+        //"device": "amdgpu_bl0",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", ""],
+		// Commands to execute on events
+        "on-click": "",
+        "on-click-middle": "",
+        "on-click-right": "",
+        "on-update": "",
+        "on-scroll-up": "light -A 5%",
+        "on-scroll-down": "light -U 5%",
+        "smooth-scrolling-threshold": 1,
+    },
+	
+"wlr/workspaces": {
+	"format": "{icon}",
+	"on-click": "activate",
+	"all-outputs": true,
+	"format-icons": {
+		"1": "",
+		"2": "",
+		"3": "",
+		"4": "",
+		"5": "ﭮ",
+                "6": "",
+                "7": "",
+                "8": "",
+                "9": "",
+                "10": "﮼",
+		"focused": "",
+		"default": ""
+	}

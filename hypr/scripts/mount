@@ -1,0 +1,1 @@
+sudo mount -o rw,remount /dev/sda4
